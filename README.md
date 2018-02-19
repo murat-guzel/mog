@@ -13,7 +13,7 @@ gopkg.in/mgo.v2/bson
 ## Usage
 
 ```      
-BuildMongo("Collection","DatabaseName")
+BuildMongo("Collection","DatabaseName","Address")
 person := NewSomething()
 Insert(person)
 UpdateById(person,bson.ObjectIdHex("5a86bb4ccb3652435837d604"))
