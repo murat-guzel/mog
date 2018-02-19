@@ -13,6 +13,7 @@ var (
     mgoSession *mgo.Session
     databaseName  = ""
     collection = ""
+    address = ""
 )
 
 type Person struct {
@@ -24,22 +25,22 @@ type Person struct {
 
 func main(){
 
-	BuildMongo("Collection","DatabaseName")
+	BuildMongo("Collection","DatabaseName","127.0.0.1")
 	person := NewSomething()
-	//Insert(person)
+	Insert(person)
 	//UpdateById(person,bson.ObjectIdHex("5a86bb4ccb3652435837d604"))
 	//UpdateByProp(person,"Name","Murat")
 	//Delete(person,bson.ObjectIdHex("5a86bb4ccb3652435837d604"))
-	DeleteByProp(person,"Name","Murat")
+	//DeleteByProp(person,"Name","Murat")
 	fmt.Println("Success")
 }
 
 //Bootstrap Mongo
-func BuildMongo(_collection string,_databaseName string){
+func BuildMongo(_collection string,_databaseName string,_address string){
 
     collection = _collection
     databaseName =_databaseName
-
+    address = _address
 }
 
 //Create a struct
@@ -54,7 +55,7 @@ func NewSomething() Person {
 func getSession () *mgo.Session {
     if mgoSession == nil {
         var err error
-        mgoSession, err = mgo.Dial("127.0.0.1")
+        mgoSession, err = mgo.Dial(address)
         if err != nil {
              panic(err) // no, not really
         }
